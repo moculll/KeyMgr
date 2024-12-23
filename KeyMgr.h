@@ -32,10 +32,10 @@ public:
 
 
 
-class keyMgr {
+class KeyMgr {
 public:
-    keyMgr();
-    ~keyMgr();
+    KeyMgr();
+    ~KeyMgr();
     template <typename... Args>
     inline void bindKeys(const std::vector<int>& keys, std::function<void(Args...)> func, Args&&... args) {
         auto newKeyWrapper = std::make_shared<KeyBindingWrapper<Args...>>(std::move(func), std::forward<Args>(args)...);

@@ -13,13 +13,13 @@
 #else
 #define DEBUG_PRINT(fmt, ...)
 #endif
-keyMgr::keyMgr() : listening(false)
+KeyMgr::KeyMgr() : listening(false)
 {
     startListening();
 
 }
 
-keyMgr::~keyMgr()
+KeyMgr::~KeyMgr()
 {
     stopListening();
     if (hHook) {
@@ -28,7 +28,7 @@ keyMgr::~keyMgr()
 }
 
 
-LRESULT CALLBACK keyMgr::keyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK KeyMgr::keyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
     if (nCode >= 0) {
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
@@ -60,7 +60,7 @@ LRESULT CALLBACK keyMgr::keyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
     return CallNextHookEx(hHook, nCode, wParam, lParam);
 }
 
-void keyMgr::startListening() {
+void KeyMgr::startListening() {
 
     if (!listening) {
         listening = true;
@@ -81,7 +81,7 @@ void keyMgr::startListening() {
     }
 }
 
-void keyMgr::stopListening() {
+void KeyMgr::stopListening() {
     if (listening) {
         listening = false;
         PostThreadMessage(GetCurrentThreadId(), WM_QUIT, 0, 0);
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
         int insideVal;
 
     };
-    std::shared_ptr<keyMgr> keyManager = std::make_shared<keyMgr>();
+    std::shared_ptr<KeyMgr> keyManager = std::make_shared<KeyMgr>();
     test testClass(10086);
     keyManager->bindKeys({ VK_F1 }, std::function(test::func_0), testClass);
     keyManager->bindKeys({ VK_F2 }, std::function(test::func_1), 151, float(24841.614), 151.161165464, false);
