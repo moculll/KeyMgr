@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdio.h>
 
-#define DEBUG_PRINT_ENABLE 1
+#define DEBUG_PRINT_ENABLE 0
 #if DEBUG_PRINT_ENABLE
 #define DEBUG_PRINT(fmt, ...) \
             do { \
@@ -140,7 +140,7 @@ void KeyMgr::stopListening() {
 
     }
 }
-
+/*
 int main(int argc, char* argv[])
 {
     class test {
@@ -178,3 +178,4 @@ int main(int argc, char* argv[])
     }));
     while (1);
 }
+*/
