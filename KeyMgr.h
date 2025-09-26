@@ -36,10 +36,12 @@ class KeyMgr {
 public:
     KeyMgr();
     ~KeyMgr();
-    template <typename... Args>
-    inline void bindKeys(const std::vector<int>& keys, std::function<void(Args...)> func, Args&&... args) {
+    template <typename Func, typename... Args>
+    inline void bindKeys(const std::vector<int>& keys, Func&& func, Args&&... args) {
         std::lock_guard<std::mutex> lock(vecMutex);
-        auto newKeyWrapper = std::make_shared<KeyBindingWrapper<Args...>>(std::move(func), std::forward<Args>(args)...);
+        auto newKeyWrapper = std::make_shared<KeyBindingWrapper<Args...>>(
+            std::function(std::forward<Func>(func)), std::forward<Args>(args)...
+        );
         keyBindings[keys].emplace_back(std::static_pointer_cast<KeyBindingBase>(newKeyWrapper));
     }
 
